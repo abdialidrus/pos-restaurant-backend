@@ -12,6 +12,8 @@
                 <a href="{{ route('home') }}"
                 class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
+
+            <li class="menu-header">Manage Users</li>
             <li class="{{ Request::is('user') ? 'active' : '' }}">
                 <a href="{{ route('user.index') }}"
                 class="nav-link"><i class="fas fa-user"></i><span>Users</span></a>
