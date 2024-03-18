@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'New User')
+@section('title', 'New Product')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -10,27 +10,28 @@
     <link rel="stylesheet" href="{{ asset('library/selectric/public/selectric.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/summernote/dist/summernote-bs4.css') }}">
 @endpush
 
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add New User</h1>
+                <h1>Add New Product</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Users</a></div>
-                    <div class="breadcrumb-item">Add New User</div>
+                    <div class="breadcrumb-item active"><a href="#">Product</a></div>
+                    <div class="breadcrumb-item">Add New Product</div>
                 </div>
             </div>
 
             <div class="section-body">
 
                 <div class="card">
-                    <form action="{{ route('users.store') }}" method="POST">
+                    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
-                                <label>Name</label>
+                                <label class="form-label">Name</label>
                                 <input type="text"
                                     class="form-control @error('name')
                                 is-invalid
@@ -43,60 +44,44 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="email"
-                                    class="form-control @error('email')
+                                <label class="form-label">Price</label>
+                                <input type="number"
+                                    class="form-control @error('price')
                                 is-invalid
                             @enderror"
-                                    name="email">
-                                @error('email')
+                                    name="price">
+                                @error('price')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Password</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <i class="fas fa-lock"></i>
-                                        </div>
-                                    </div>
-                                    <input type="password"
-                                        class="form-control @error('password')
-                                is-invalid
-                            @enderror"
-                                        name="password">
-                                </div>
-                                @error('password')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                <label class="form-label">Category</label>
+                                <select name="category_id" class="form-control selectric">
+                                    @foreach ($categories as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Role</label>
+                                <label class="form-label">Is Available</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="owner" class="selectgroup-input">
-                                        <span class="selectgroup-button">Owner</span>
+                                        <input type="radio" name="is_available" value="true" class="selectgroup-input" checked="">
+                                        <span class="selectgroup-button">YES</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="admin" class="selectgroup-input">
-                                        <span class="selectgroup-button">Admin</span>
+                                        <input type="radio" name="is_available" value="false" class="selectgroup-input">
+                                        <span class="selectgroup-button">NO</span>
                                     </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="cashier" class="selectgroup-input">
-                                        <span class="selectgroup-button">Cashier</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="staff" class="selectgroup-input" checked="">
-                                        <span class="selectgroup-button">Staff</span>
-                                    </label>
-
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="form-label">Product Image</label>
+                                <input type="file" class="form-control" name="image" id="image">
+                            </div>
+
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>
@@ -110,4 +95,8 @@
 @endsection
 
 @push('scripts')
+<script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
+<script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
+<script src="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
+<script src="{{ asset('library/upload-preview/upload-preview.js') }}"></script>
 @endpush

@@ -22,5 +22,9 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'role' => 'owner',
         ]);
+
+        // \App\Models\Category::factory(50)->create();
+
+        // \App\Models\Product::factory(50)->create();
     }
 }

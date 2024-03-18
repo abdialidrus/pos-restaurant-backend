@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Products')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -11,12 +11,12 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Manage Users</h1>
+                <h1>Manage Products</h1>
                 <div class="section-header-button">
-                    <a href="{{ route('users.create') }}" class="btn btn-primary">Add New</a>
+                    <a href="{{ route('product.create') }}" class="btn btn-primary">Add New</a>
                 </div>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Users</a></div>
+                    <div class="breadcrumb-item active"><a href="#">Products</a></div>
                 </div>
             </div>
             <div class="section-body">
@@ -32,7 +32,7 @@
                             <div class="card-body">
 
                                 <div class="float-right">
-                                    <form method="GET" action="{{ route('users.index') }}">
+                                    <form method="GET" action="{{ route('product.index') }}">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Search" name="name">
                                             <div class="input-group-append">
@@ -47,34 +47,45 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-
+                                            <th>ID</th>
+                                            <th>Image</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
-                                        @foreach ($users as $user)
+                                        @foreach ($products as $product)
                                             <tr>
-
-                                                <td>{{ $user->name }}
-                                                </td>
+                                                <td>{{ $product->id }}</td>
                                                 <td>
-                                                    {{ $user->email }}
+                                                    @if ($product->image_url)
+                                                        <img src="{{ asset($product->image_url) }}" alt="" width="100" class="img-thumbnail">
+                                                    @else
+                                                        <span class="badge badge-danger">No image</span>
+                                                    @endif
                                                 </td>
+                                                <td>{{ $product->name }}</td>
+                                                <td>{{ $product->category_name }}</td>
+                                                <td>{{ $product->price }}</td>
                                                 <td>
-                                                    {{ $user->role }}
+                                                    @if ($product->is_available)
+                                                        <div class="badge badge-success">Active</div>
+                                                    @else
+                                                    <div class="badge badge-danger">Not Active</div>
+                                                    @endif
                                                 </td>
-                                                <td>{{ $user->created_at }}</td>
+                                                <td>{{ $product->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('users.edit', $user->id) }}'
+                                                        <a href='{{ route('product.edit', $product->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                                        <form action="{{ route('product.destroy', $product->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -91,8 +102,32 @@
 
                                     </table>
                                 </div>
-                                <div class="float-right">
-                                    {{ $users->withQueryString()->links() }}
+                                {{-- <div class="float-right">
+                                    {{ $products->withQueryString()->links() }}
+                                </div> --}}
+                                <div class="card-footer text-right">
+                                    <nav class="d-inline-block">
+                                        <ul class="pagination mb-0">
+                                            {{-- <li class="page-item disabled">
+                                                <a class="page-link"
+                                                    href="#"
+                                                    tabindex="-1"><i class="fas fa-chevron-left"></i></a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link"
+                                                    href="#">1 <span class="sr-only">(current)</span></a></li>
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                    href="#">2</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link"
+                                                    href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link"
+                                                    href="#"><i class="fas fa-chevron-right"></i></a>
+                                            </li> --}}
+                                            {{ $products->withQueryString()->links() }}
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>

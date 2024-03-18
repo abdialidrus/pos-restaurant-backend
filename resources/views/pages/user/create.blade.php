@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit User')
+@section('title', 'New User')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,26 +16,18 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Advanced Forms</h1>
+                <h1>Add New User</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Forms</a></div>
-                    <div class="breadcrumb-item">Users</div>
+                    <div class="breadcrumb-item active"><a href="#">Users</a></div>
+                    <div class="breadcrumb-item">Add New User</div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">Users</h2>
-
-
 
                 <div class="card">
-                    <form action="{{ route('users.update', $user) }}" method="POST">
+                    <form action="{{ route('user.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
-                        <div class="card-header">
-                            <h4>Input Text</h4>
-                        </div>
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Name</label>
@@ -43,7 +35,7 @@
                                     class="form-control @error('name')
                                 is-invalid
                             @enderror"
-                                    name="name" value="{{ $user->name }}">
+                                    name="name">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -56,7 +48,7 @@
                                     class="form-control @error('email')
                                 is-invalid
                             @enderror"
-                                    name="email" value="{{ $user->email }}">
+                                    name="email">
                                 @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -84,28 +76,25 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Roles</label>
+                                <label class="form-label">Role</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="owner" class="selectgroup-input"
-                                            @if ($user->role == 'owner') checked @endif>
+                                        <input type="radio" name="role" value="owner" class="selectgroup-input">
                                         <span class="selectgroup-button">Owner</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="admin" class="selectgroup-input"
-                                            @if ($user->role == 'admin') checked @endif>
+                                        <input type="radio" name="role" value="admin" class="selectgroup-input">
                                         <span class="selectgroup-button">Admin</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="cashier" class="selectgroup-input"
-                                            @if ($user->role == 'cashier') checked @endif>
+                                        <input type="radio" name="role" value="cashier" class="selectgroup-input">
                                         <span class="selectgroup-button">Cashier</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="role" value="staff" class="selectgroup-input"
-                                            @if ($user->role == 'staff') checked @endif>
+                                        <input type="radio" name="role" value="staff" class="selectgroup-input" checked="">
                                         <span class="selectgroup-button">Staff</span>
                                     </label>
+
                                 </div>
                             </div>
                         </div>

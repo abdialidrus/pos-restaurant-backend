@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Product Categories')
+@section('title', 'Users')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -11,12 +11,12 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Manage Product Categories</h1>
+                <h1>Manage User</h1>
                 <div class="section-header-button">
-                    <a href="{{ route('product_categories.create') }}" class="btn btn-primary">Add New</a>
+                    <a href="{{ route('user.create') }}" class="btn btn-primary">Add New</a>
                 </div>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Product Categories</a></div>
+                    <div class="breadcrumb-item active"><a href="#">Users</a></div>
                 </div>
             </div>
             <div class="section-body">
@@ -32,7 +32,7 @@
                             <div class="card-body">
 
                                 <div class="float-right">
-                                    <form method="GET" action="{{ route('product_categories.index') }}">
+                                    <form method="GET" action="{{ route('user.index') }}">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Search" name="name">
                                             <div class="input-group-append">
@@ -49,24 +49,32 @@
                                         <tr>
 
                                             <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
                                             <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
-                                        @foreach ($product_categories as $product_category)
+                                        @foreach ($users as $user)
                                             <tr>
 
-                                                <td>{{ $product_category->name }}
+                                                <td>{{ $user->name }}
                                                 </td>
-                                                <td>{{ $product_category->created_at }}</td>
+                                                <td>
+                                                    {{ $user->email }}
+                                                </td>
+                                                <td>
+                                                    {{ $user->role }}
+                                                </td>
+                                                <td>{{ $user->created_at }}</td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href='{{ route('product_categories.edit', $product_category->id) }}'
+                                                        <a href='{{ route('user.edit', $user->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit
                                                         </a>
 
-                                                        <form action="{{ route('product_categories.destroy', $product_category->id) }}" method="POST"
+                                                        <form action="{{ route('user.destroy', $user->id) }}" method="POST"
                                                             class="ml-2">
                                                             <input type="hidden" name="_method" value="DELETE" />
                                                             <input type="hidden" name="_token"
@@ -84,7 +92,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{ $product_categories->withQueryString()->links() }}
+                                    {{ $users->withQueryString()->links() }}
                                 </div>
                             </div>
                         </div>

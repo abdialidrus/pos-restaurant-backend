@@ -18,14 +18,14 @@ class UserController extends Controller
             })
             ->orderBy('id', 'desc')
             ->paginate(10);
-        return view('pages.users.index', compact('users'));
+        return view('pages.user.index', compact('users'));
     }
 
     //create
     public function create()
     {
 
-        return view('pages.users.create');
+        return view('pages.user.create');
     }
 
     //store
@@ -45,21 +45,21 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('user.index')->with('success', 'User created successfully.');
     }
 
     //show
     public function show($id)
     {
         $user = User::find($id);
-        return view('pages.users.show', compact('user'));
+        return view('pages.user.show', compact('user'));
     }
 
     //edit
     public function edit($id)
     {
         $user = User::find($id);
-        return view('pages.users.edit', compact('user'));
+        return view('pages.user.edit', compact('user'));
     }
 
     //update
@@ -80,7 +80,7 @@ class UserController extends Controller
         }
         $user->save();
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        return redirect()->route('user.index')->with('success', 'User updated successfully.');
     }
 
     //destroy
@@ -89,6 +89,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('user.index')->with('success', 'User deleted successfully.');
     }
 }

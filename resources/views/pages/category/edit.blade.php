@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'New Product Category')
+@section('title', 'Edit Product Category')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -16,18 +16,26 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Add New Product Category</h1>
+                <h1>Advanced Forms</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Product Categoris</a></div>
-                    <div class="breadcrumb-item">Add New Product Category</div>
+                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="#">Forms</a></div>
+                    <div class="breadcrumb-item">Product Categories</div>
                 </div>
             </div>
 
             <div class="section-body">
+                <h2 class="section-title">Product Categories</h2>
+
+
 
                 <div class="card">
-                    <form action="{{ route('product_categories.store') }}" method="POST">
+                    <form action="{{ route('category.update', $category) }}" method="POST">
                         @csrf
+                        @method('PUT')
+                        <div class="card-header">
+                            <h4>Input Text</h4>
+                        </div>
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Name</label>
@@ -35,7 +43,7 @@
                                     class="form-control @error('name')
                                 is-invalid
                             @enderror"
-                                    name="name">
+                                    name="name" value="{{ $category->name }}">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}

@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,9 @@ Route::middleware(['auth'])->group(function () {
       return view('pages.dashboard');
     })->name('home');
 
-    Route::resource('users', UserController::class);
+    Route::resource('user', UserController::class);
 
-    Route::resource('product_categories', ProductCategoryController::class);
+    Route::resource('category', CategoryController::class);
+
+    Route::resource('product', ProductController::class);
 });
